@@ -4,6 +4,7 @@ import cookieSession from 'cookie-session'
 import mongoose from 'mongoose'
 
 import { config } from './config.js'
+import { notFound, globalError } from './middlewares.js'
 import { authRouter } from './router.js'
 
 mongoose
@@ -32,6 +33,9 @@ app.get('/ping', (req, res) => {
 })
 
 app.use('/api/auth', authRouter)
+
+app.use(notFound)
+app.use(globalError)
 
 app.listen(3000, () => {
     console.log('main: server running on port 3000')
