@@ -22,7 +22,6 @@ app.use(cors())
 app.use(
     cookieSession({
         signed: false,
-        secure: true,
     })
 )
 
