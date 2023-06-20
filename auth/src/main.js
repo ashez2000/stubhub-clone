@@ -8,27 +8,27 @@ import { notFound, globalError } from './middlewares.js'
 import { authRouter } from './router.js'
 
 mongoose
-    .connect(config.mongoUri)
-    .then(() => {
-        console.log('main: connected to mongodb')
-    })
-    .catch((err) => {
-        console.log('main: error connecting to mongodb', err.message)
-    })
+  .connect(config.mongoUri)
+  .then(() => {
+    console.log('main: connected to mongodb')
+  })
+  .catch((err) => {
+    console.log('main: error connecting to mongodb', err.message)
+  })
 
 const app = express()
 
 app.use(cors())
 app.use(
-    cookieSession({
-        signed: false,
-    })
+  cookieSession({
+    signed: false,
+  })
 )
 
 app.use(express.json())
 
 app.get('/ping', (req, res) => {
-    res.send('OK')
+  res.send('OK')
 })
 
 app.use('/api/auth', authRouter)
@@ -36,6 +36,6 @@ app.use('/api/auth', authRouter)
 app.use(notFound)
 app.use(globalError)
 
-app.listen(3000, () => {
-    console.log('main: server running on port 3000')
+app.listen(config.port, () => {
+  console.log(`main: server running on port ${config.port}`)
 })
